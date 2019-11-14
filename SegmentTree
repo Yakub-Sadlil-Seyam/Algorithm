@@ -1,0 +1,84 @@
+
+
+#include<bits/stdc++.h> using namespace std;
+
+int arr[10000] = {};
+int tree[3*10000] = {};
+void segmentTree(int node, int a, int b)
+{
+    if(a == b)
+    {
+        tree[node] = arr[b];
+        return;
+    }
+    int left = node*2;
+    int right = node*2 + 1;
+    int mid = (a+b)/2;
+    segmentTree(left,a,mid);
+    segmentTree(right,mid+1,b);
+    tree[node] = tree[left] + tree[right];
+}
+
+void printTree(int n)
+{
+    for(int i = 1; i <= 3*n; i++)
+    {
+        cout<<i<<" --> ";
+        cout<<tree[i]<<endl;
+    }
+}
+
+int querry(int node, int a, int b,int l,int m)
+{
+    if(l > b || m < a) return 0; //out of relevant
+    if(a >= l && b <= m) //relevant
+    {
+        return tree[node];
+    }
+    int left = node*2;      // have to divide more
+    int right = node*2 + 1;
+    int mid = (a+b)/2;
+    int sum1 = querry(left,a,mid,l,m);
+    int sum2 = querry(right,mid+1,b,l,m);
+    return sum1+sum2;
+}
+
+void update(int node, int a, int b,int index,int value)
+{
+    if(index > b || index < a) return ; //out of relevant
+    if(a >= index && b <= index) //relevant
+    {
+        tree[node] = value;
+        return;
+    }
+    int left = node*2;      // have to divide more
+    int right = node*2 + 1;
+    int mid = (a+b)/2;
+    update(left,a,mid,index,value);
+    update(right,mid+1,b,index,value);
+    tree[node] = tree[left] + tree[right];
+}
+
+int main()
+{
+    int n,l,m,x,y,u,v;
+    cin>>n;
+    for(int i = 1; i <= n; i++)
+    {
+        int x;
+        cin>>x;
+        arr[i] = x;
+    }
+    segmentTree(1,1,n);
+    printTree(n);
+    cout<<"\nEnter the range of data to find the sum\n";
+    cin>>l>>m;
+    cout<<querry(1,1,n,l,m);
+    cout<<"\nEnter the index number and value respectively to update\n";
+    cin>>x>>y;
+    update(1,1,n,x,y);
+    cout<<"\nEnter the range of data to find the sum\n";
+    cin>>u>>v;
+    cout<<querry(1,1,n,u,v);
+}
+
