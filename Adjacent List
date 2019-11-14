@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+    int main()
+    {
+        int node,edge;
+        vector<int>vct[100];
+        cin>>node>>edge;
+
+        for(int i = 1; i <= edge; i++)
+        {
+            int x,y;
+            cin>>x>>y;
+            vct[x].push_back(y);
+            vct[y].push_back(x);
+        }
+
+        for(int i = 1; i <= node; i ++)
+        {
+            cout<<i<<" : ";
+            for(int j = 0; j < vct[i].size(); j++)
+            {
+                cout<<vct[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+    }
