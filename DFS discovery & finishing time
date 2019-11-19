@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+int visited[1000] = {};
+vector<int>store;
+int times = 1;
+int stimes[1000] = {};
+int ftimes[1000] = {};
+void dfs(int s, vector<int>adlist[])
+{
+    stimes[s] = times;
+    ++times;
+    visited[s] = 1;
+    store.push_back(s);
+    for(int i = 0; i < adlist[s].size(); i++)
+    {
+        int u = adlist[s][i];
+        if(visited[u] == 0)
+        {
+            dfs(u, adlist);
+        }
+
+    }
+    ftimes[s] = times;
+        ++times;
+}
+int main()
+{
+    int node, edge;
+    cin >> node >> edge;
+    vector<int>adlist[100];
+    for(int i = 1; i <= edge; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        adlist[x].push_back(y);
+        adlist[y].push_back(x);
+    }
+    for(int i = 1; i <= node; i++)
+    {
+        if(visited[i] == 0)
+        {
+            dfs(i, adlist);
+        }
+    }
+    for(int i = 0; i < store.size(); i++)
+    {
+        cout << store[i] << " ";
+    }
+    cout << endl;
+    for(int i = 1; i <= node; i++)
+    {
+        cout << store[i-1] << " : "<<stimes[i]<<" "<<ftimes[i]<<endl;
+    }
+    return 0;
+}
+
+/* sample input data
+5 6
+1 2
+2 3
+2 5
+3 4
+3 5
+4 5
+*/
