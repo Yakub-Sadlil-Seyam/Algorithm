@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int color[100];
+int mat[100][100] = {};
+#define RED 1
+#define GREEN 2
+#define BLACK 3
+int parent[100];
+int dstnce[100];
+
+void bfs(int startingNode,int node)
+    {
+        for(int i = 0; i < node ; ++i){
+            color[i] = RED;
+            dstnce[i] = INT_MIN;
+            parent[i] = -1;
+        }
+        dstnce[startingNode] = 0;
+        parent[startingNode] = -1;
+
+        queue<int> q;
+        q.push(startingNode);
+
+        while(!q.empty())
+        {
+            int x = q.front();
+            q.pop();
+            color[x] = GREEN;
+            cout<<x<<" ";
+            for(int i = 0; i <node;++i)
+            {
+                if(mat[x][i] == 1){
+                    if(color[i] == RED){
+                            dstnce[i] = dstnce[x] + 1;
+                            parent[i] = x;
+                            q.push(i);
+                    }
+                }
+            }
+            color[x] = BLACK;
+        }
+    }
+
+int main()
+{
+    int node, edge;
+    cin >> node >> edge;
+
+    for(int i = 0; i < edge; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        mat[x][y] = 1;
+        mat[y][x] = 1;
+    }
+    bfs(0,node);
+    cout<<"\n"<<"Printing parent of node 5 "<<endl;
+    cout<<parent[5]<<endl;
+    cout<<"Printing distance from 0 to 7"<<endl;
+    cout<<dstnce[7]<<endl;
+    return 0;
+}
