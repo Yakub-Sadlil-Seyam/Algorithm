@@ -1,0 +1,110 @@
+// ********* (1)***************************************************
+//  time complexity  O(n)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+    bool isPrime(int n)
+    {
+        if(n < 2) return false;
+        for(int i = 2; i < n; i++)
+        {
+            if(n % i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int main()
+    {
+        int x;
+        while(scanf("%d",&x) == 1)
+        {
+            bool f = isPrime(x);
+            if(f == false) cout<<"not prime"<<endl;
+            else cout<<"prime"<<endl;
+        }
+    }
+
+// ********* (2) ***************************************************
+
+//  time complexity  O(√n)
+
+#include<bits/stdc++.h>
+using namespace std;
+bool isPrime(int n);
+
+    int main()
+    {
+        int x;
+        while(scanf("%d",&x) == 1)
+        {
+            bool f = isPrime(x);
+            if(f == false) cout<<"not prime"<<endl;
+            else cout<<"prime"<<endl;
+        }
+    }
+
+    bool isPrime(int n)
+    {
+        if(n < 2) return false;
+        //for(int i = 2; i <= sqrt(n); i++)
+        for(long long i = 2; i*i <= n; i++)  // to skip double precision
+        {
+            if(n % i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+// ********* (3) ***************************************************
+
+//time complexity  O(n√n)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isPrime(int n);
+
+    vector<int> getPrime(int n)
+    {
+        vector<int> prime;
+        int counter = 0;
+        for(int i = 2; i <= n; i++)
+        {
+           if(isPrime(i))
+            {
+                prime.push_back(i);
+                cout<<i<<" ";
+                counter++;
+            }
+        }
+        cout<<endl<< "Total prime numbers = " << counter <<endl;
+        return prime;
+    }
+
+    int main()
+    {
+        int x;
+        printf("Enter the number to see the primes within it \n");
+        scanf("%d",&x);
+        getPrime(x);
+    }
+
+    bool isPrime(int n)
+    {
+        if(n < 2) return false;
+        //for(int i = 2; i <= sqrt(n); i++)
+        for(long long i = 2; i*i <= n; i++)  // to skip double precision
+        {
+            if(n % i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
