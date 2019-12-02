@@ -1,0 +1,46 @@
+//time complexity  O(nlog(nlog(n)))
+
+#include<bits/stdc++.h>
+using namespace std;
+#define M 10000000
+bool isPrime(int n);
+
+bool marked[M];
+
+    void sieve(int n)
+    {
+        for(long long i = 2; i*i <= n; i++){
+            if(marked[i] == false)                // is a prime number
+            {
+                for(int j = i*i; j <= n; j += i)
+                {
+                    marked[j] = true;             // not a prime number
+                }
+            }
+        }
+    }
+
+    int main()
+    {
+        int x;
+        printf("Enter the number \n");
+        scanf("%d",&x);
+        sieve(x);
+        bool p = isPrime(x);
+        if(p == true) cout<<"prime number"<<endl;
+        else  cout<<"not a prime number" <<endl;
+    }
+
+     bool isPrime(int n)
+     {
+        if(n < 2) return false;
+        return marked[n] == false;
+     }
+     
+//  or *******************
+//    bool isPrime(int n)
+//    {
+//        if(n < 2) return false;
+//        if(marked[n] == false) return true;
+//        else return false;
+//    }
