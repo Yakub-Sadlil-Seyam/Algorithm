@@ -20,11 +20,11 @@ vector<int> prime;
             if(temp == currentPrime) primeNumbers[temp - l] = true;
         }
 
-for (int i = 0; i < r - l + 1; ++i) {
+    for (int i = 0; i < r - l + 1; ++i) {
         if (primeNumbers[i]) cout << (i+l) << endl;
-    }
-    }
-// finding the prime numbers within 1 to 32000
+        }
+     }
+    // finding the prime numbers within 1 to 32000
     void sieve()
     {
         bool primeNumbers[M];
@@ -63,3 +63,9 @@ for (int i = 0; i < r - l + 1; ++i) {
           segmentedSieve(left,right);
         }
     }
+
+/*
+useful links abput it
+1.  https://www.youtube.com/watch?v=ykZvMA-8S6s&list=PLgLCjVh3O6Si82JG4dSp6iSQQnXBM3wjT&index=2
+2.  http://www.progkriya.org/gyan/basic-number-theory.html
+*/
