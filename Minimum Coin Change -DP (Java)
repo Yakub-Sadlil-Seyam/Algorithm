@@ -1,0 +1,64 @@
+package Minimum_Coin_Change;
+
+public class Coin_Change {
+	
+		public static void main(String[] args) {
+			int[] coins = {1,5,6,8};
+			int desired = 15;
+			int n = coins.length;
+			int[][] table = new int[n][desired+1];
+			
+			///Putting first column's indice value as 0
+			for(int i = 0; i < n; i++) {
+				table[i][0] = 0;
+			}
+			
+			///First row (without the first column of it) value assignment
+			for(int j = 1; j <= desired; j++)
+			{
+				if(j >= coins[0])
+				{
+					table[0][j] = 1 + table[0][j - coins[0]];
+				}
+				else
+					table[0][j] = 0;
+			}		
+			
+			System.out.println("Dynamic Programming for Coin Change\n");
+			for(int i = 1; i < n; i++) 
+			 {
+				for(int j = 1; j <= desired; j++)
+				 {
+					if(j >= coins[i])
+					{
+						table[i][j] = Math.min(table[i-1][j], 1 + table[i][j - coins[i]]);
+					}
+					else
+					table[i][j] = table[i-1][j];
+				}
+			}
+			
+			///Printing the Final table
+			
+			for(int j = 0; j <= desired; j++)
+			{
+				System.out.print(" "+table[0][j]);
+			}
+			System.out.println();
+			
+			for(int i = 1; i < n; i++)
+			{
+				for(int j = 0; j <= desired; j++)
+				{
+					if(j <= 9)
+						System.out.print(" "+table[i][j]);
+					else
+						System.out.print("  "+table[i][j]);
+				}
+				System.out.println();
+			}
+			
+			System.out.print("\nMinimum coins needed to be "+desired);
+			System.out.print(" is " +table[n-1][desired]);
+		}
+	}
