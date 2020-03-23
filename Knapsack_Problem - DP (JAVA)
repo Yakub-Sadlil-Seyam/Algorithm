@@ -1,0 +1,41 @@
+public class knapsack_Problem {
+
+	public static void main(String[] args) {
+		int[] weight = {2,3,4,5};
+		int[] value = {1,2,5,6};
+		int v = value.length;
+		int bag = 8;
+		int[][] table = new int[v+1][bag+1];
+		
+		for(int i = 0; i <= v; i++)
+		{
+			for(int j = 0; j <= bag; j++)
+			{
+				table[i][j] = 0;
+			}
+		}
+		
+		
+		for(int i = 1; i <= v; i++)
+		{
+			for(int j = 1; j <= bag; j++)
+			if(j >= weight[i-1])
+			{
+				table[i][j] = Math.max(table[i-1][j], table[i-1][j- weight[i-1]] + value[i-1]);
+			}
+			else
+				table[i][j] = table[i-1][j];
+		}
+		
+		
+		
+		for(int i = 0; i <= v; i++)
+		{
+			for(int j = 0; j <= bag; j++)
+			{
+				System.out.print(" "+table[i][j]); 
+			}
+			System.out.println();
+		}
+	}
+}
