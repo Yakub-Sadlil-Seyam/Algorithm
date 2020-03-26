@@ -1,3 +1,5 @@
+// By using 2D array
+
 public class knapsack_Problem {
 
 	public static void main(String[] args) {
@@ -39,3 +41,34 @@ public class knapsack_Problem {
 		}
 	}
 }
+
+// By using 1D array
+/*
+ for(int i = 1; i <= v; i++)
+        {
+            for(int j = n; j > 0 ; j--)
+                if(j >= weight[i])
+                {
+                    table[j] = max( table[j], weight[i] + table[j - weight[i]]);
+                }
+        }
+        return table[n];
+	
+#########Problems -  1078 B, UVA 562
+****** Codeshef discussion
+1**  Let’s understand this by the following means: You have total capacity and elements of the knapsack equal to 10^6.
+If you take a 2-D array, you need space to store 10^6 * 10^6 elements.
+Now, since capacity is 10^6, int won’t work to define the datatype so, you choose long.
+Now, one long type data takes memory of 4B (it may differ according to architecture but 
+let’s have a rough idea) and then for storing 10^6 * 10^6 long ints, you need 10^6 * 10^6 * 4 B of memory,
+no online judge provides as much memory for your code.
+
+***** Codeforces Discussion
+2** To retrieve the answer, just take max(table[j]) between all valid j.
+This trick only works because we are walking backwards in the weight dimension instead of forwards.
+So, when we are updating the table[], we won't mess up and risk using the same item twice 
+(which could easily happen if we went forwards with j).
+This strategy is sometimes useful when you want to use a DP which goes well in time.
+
+This could be used in the recent contest problem https://codeforces.com/contest/1078/problem/B
+ */
