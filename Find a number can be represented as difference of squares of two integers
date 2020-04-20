@@ -1,0 +1,88 @@
+// it is a solution of Codeshef problem              https://www.codechef.com/APRIL20B/problems/SQRDSUB
+// find the number of contiguous subsequences from an array
+  if the product of subsequences can be represented as a difference of squares of two integers
+
+#include <bits/stdc++.h>
+#define pb(a)           push_back(a)
+#define db              double
+#define ll              long long
+#define loop1(i,n)      for(int i=1;i<=n;i++)
+#define loop0(i,n)      for(int i=0;i<n;i++)
+#define TEST_CASE(t)    for(int z=1;z<=t;z++)
+
+using namespace std;
+  
+    // finding number '2's in prime factor of a number
+    ll squaredDiff(ll x)
+    {
+        int cnt = 0;
+        while(x % 2 == 0)
+        {
+            x /= 2;
+            cnt++;
+            if(cnt >= 2) return cnt;
+        }
+        return cnt;
+    }
+
+    int main()
+    {
+        int t; cin>>t;
+        TEST_CASE(t)
+        {
+            int cnt = 0,n,j; cin>>n;
+            int a[n+5] = {};
+            loop1(i,n) cin>>a[i];
+
+            loop1(i,n)
+            {
+                ll multi = a[i];
+                if(squaredDiff(multi) == 0 || squaredDiff(multi) > 1) cnt++;
+                for(int j = i - 1; j >= 1; j--)
+                {
+                    multi *= a[j];
+                    if(squaredDiff(multi) == 0 || squaredDiff(multi) > 1) cnt++;
+                }
+            }
+            cout<<cnt<<endl;
+        }
+        return 0;
+    }
+/*  
+https://nrich.maths.org/whatspossible/solution
+
+1: 1^2−0^2 is 1−0=1
+2: does not work
+3: 2^2−162 is 4−1=3
+4: 2^2−0^2 is 4−0=4
+5: 3^2−2^2 is 9−4=5
+6: does not work
+7: 4^2−3^2 is 16−9=7
+8: 3^2−1^2 is 9−1=8
+9: 52−42 is 25−16=9
+10: does not work
+11: 62−52 is 36−25=11
+12: 42−22 is 16−4=12
+13: 72−62 is 49−36=13
+14: does not work
+15: 82−72 is 64−49=15
+16: 52−32 is 25−9=16
+17: 92−82 is 81−64=17
+18: does not work
+19: 102−92 is 100−81=19
+20: 62−42 is 36−16=20
+21: 112−102 is 121−100=21
+22: does not work
+23: 122−112 is 144−121=23
+24: 72−52 is 49−25=24
+25: 132−122 is 169−144=25 
+26: does not work
+27: 142−132 is 196−169=27
+28: 82−62 is 64−36=28
+29: 152−142 is 225−196=29
+30: does not work
+
+You can express 22 of the 30 numbers as a difference of two perfect squares.
+A pattern occuring throughout these solutions is that all odd numbers can be represented by a difference of two perfect squares,
+as well as all numbers resulting in an integer when divided by four.
+
