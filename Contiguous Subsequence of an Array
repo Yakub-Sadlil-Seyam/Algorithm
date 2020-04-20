@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+    int main()
+    {
+            cout<<"enter the size of array"<<endl;
+            int n; cin>>n;
+            cout<<"enter the array elements"<<endl;
+            int a[n+5] = {};
+            for(int i = 1; i <= n; i++) cin>>a[i];
+            
+            // creating multiplication of every contiguous subsequence
+            for(int i = 1; i <= n; i++)
+            {
+                ll multi = a[i];
+                for(int j = i - 1; j >= 1; j--)
+                {
+                    multi *= a[j];
+                }
+            }
+        return 0;
+    }
+
+/* APPROACH
+  array =  a[4] = {1,2,3,4};
+
+ contiguous subsequence :   {1} {2} {2,1}  {3} {3,2}{3,2,1}  {4} {4,3} {4,3,2} {4,3,2,1}
+ number of sets :           .1. ....2....  ...... 3........  ...........4...............
+
+ as every next element adding extra one number of sets, so total number of sets 1+2+3+ ....+n = (n(n+1)) / 2
+ */
