@@ -1,0 +1,67 @@
+// This method is created by my school friend Hossain(IIUC)
+
+#include <bits/stdc++.h>
+#define ll              long long
+#define loop1(i,n)      for(int i=1;i<=n;i++)
+#define loop0(i,n)      for(int i=0;i<n;i++)
+#define TEST_CASE(t)    for(int z=1;z<=t;z++)
+using namespace std;
+
+    int main()
+    {
+        ll arr[40] = {};
+        ll cumu[40] = {};
+        cumu[0] = 1;
+        
+        loop0(i,39)  arr[i] =  pow(3,i);                //arr {1,3,9,27,81 } = {3^0 , 3^1, 3^2, 3^4}
+        loop1(i,38)  cumu[i] = cumu[i-1] + pow(3,i);    //array of cumulative sum {1,4,13,40,121}
+
+            while(1)
+              {
+                int x,n,temp; cin>>n;
+                for(int i = 0; i <= 38; i++)    // finding which value of cumulative array is immediate greater than or equal to n
+                {
+                    if(cumu[i] >= n)
+                    {
+                        x = cumu[i];
+                        temp = i;           // keeping index number
+                        break;
+                    }
+                }
+
+                ll diff = x - n;
+                for(int i = temp; i >= 0; i--)
+                {
+                    if(arr[i] <= diff)
+                        diff -= arr[i];
+                    if(diff < 0) break;
+                }
+                cout<<diff<<endl;
+                if(diff == 0) cout<<"YES"<<endl;
+                    else cout<<"NO"<<endl;
+              }
+        return 0;
+    }
+/* APPROACH
+    if n = 30;
+        we will choose cumu[3] which is 40.     {1,4,13,40,121}
+        here temp = 3;
+        then diff 40 - 30 = 10;
+    we will try to find is 10 remain within arr[i] or not.   {1,3,9,27,81 }
+        here arr[i] = 27;
+        is 27 is greater than diff
+        then check arr[2] = 9,
+        diff = 10 - 9 = 1;
+        diff is less than arr[2] = 3, so 
+        diff = diff - arr[0]
+             = 1 - 1 = 0
+             that means from 0th and 2nd element of arr we can make 10
+             so remaining 30 will be possible from arr[1]+arr[3]  
+             
+    *************************************************************************************
+30 can be represented :30 = 3^3+3^1,
+1 can be represented :1 = 3^0,
+12 can be represented: 12 = 3^2+3^1,
+but 2 can't be represented: you can't represent it as a sum of distinct powers of 3 (2 = 3^0+3^0), here 3^0 is taken two times
+19 can't be represented: you can't represent it as a sum of distinct powers of 3 (for example, 
+the representations 19 = 3^2+3^2+3^0 = 3^2+3^1+3^1+3^1+3^0 are invalid),
