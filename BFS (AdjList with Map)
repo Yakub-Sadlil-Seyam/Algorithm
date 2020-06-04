@@ -68,3 +68,37 @@ map<int,int> parent;
 
 this sample input's graph diagram>  http://www.shafaetsplanet.com/planetcoding/wp-content/uploads/2014/02/bfs4-300x296.png
 */
+// instead of "visited" map here map.count() function is used
+
+#include<bits/stdc++.h>
+using namespace std;
+map<int,vector<int>>adjlist;
+map<int,int>dstance;
+map<int,int> parent;
+
+void bfs(int startingNode)
+    {
+        queue<int>q;
+        q.push(startingNode);
+        dstance[startingNode] = 0;
+        while(!q.empty())
+        {
+            int x = q.front();
+            cout<<x<<" ";
+            q.pop();
+
+            for(int i = 0; i < adjlist[x].size(); i++)
+            {
+                if(!dstance.count(adjlist[x][i]))
+                {
+                    dstance[adjlist[x][i]] = dstance[x] + 1;
+                    q.push(adjlist[x][i]);
+                    parent[adjlist[x][i]] = x;
+                    cout<<"> "<<adjlist[x][i];
+                }
+            }
+           cout<<endl;
+        }
+    }
+    
+    */
