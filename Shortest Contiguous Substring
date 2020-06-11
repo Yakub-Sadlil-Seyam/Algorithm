@@ -1,0 +1,50 @@
+/*  Codeforces: Problem 1354B
+    https://codeforces.com/contest/1354/problem/B
+        
+       ***** B. Ternary String*****
+You are given a string s such that each its character is either 1, 2, or 3. You have to choose the 
+shortest contiguous substring of s such that it contains each of these three characters at least once */
+
+#include <bits/stdc++.h>
+#define ms(a,b)         memset(a, b, sizeof(a))
+#define pb(a)           push_back(a)
+#define db              double
+#define ll              long long
+#define loop1(i,n)      for(int i=1;i<=n;i++)
+#define loop0(i,n)      for(int i=0;i<n;i++)
+#define TEST_CASE(t)    for(int z=1;z<=t;z++)
+ll PowFun(ll base, ll power){ll ans = 1;for(int i = 1; i <= power; i++){ans *= base;}return ans;}
+double phi = acos(-1);
+using namespace std;
+
+    void solve()
+    {
+        string str; cin>>str;
+        vector<pair<char, int>> sequence;
+        for(int i = 0; i < str.size(); i++)
+        {
+            if(sequence.empty() || sequence.back().first != str[i])
+                sequence.push_back(make_pair(str[i],1));
+            else
+                sequence.back().second++;
+        }
+        int res = INT_MAX;
+        for(int i = 1; i < sequence.size() - 1; i++)
+        {
+            if(sequence[i-1].first != sequence[i+1].first)
+            {
+                res = min(res,sequence[i].second + 2);
+            }
+        }
+        if(res > str.size()) cout<<"0"<<endl;
+        else cout<<res<<endl;
+    }
+
+    int main()
+    {
+        int t; cin>>t;
+        TEST_CASE(t)
+        {
+            solve();
+        }
+    }
