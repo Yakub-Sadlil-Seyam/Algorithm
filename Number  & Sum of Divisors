@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long binary_exp(long long base, int power)  // power function
+{
+    long long ans = 1;
+    while(power)
+    {
+        if(!power%2)
+        {
+            base *= base;
+            power /= 2;
+        }
+        else
+        {
+            ans *= base;
+            power--;
+        }
+    }
+}
+
+    int main()
+    {
+        int n; cin>>n;
+        map<int,int> mp;
+
+        for(int i = 2; i*i <= n; i++)
+        {
+            while(n%i== 0)
+            {
+                mp[i]++;
+                n /= i;
+            }
+        }
+        if(n > 1) mp[n]++;
+/*
+        for(auto it = mp.begin(); it != mp.end(); ++it)
+        {
+            cout<<it->first<<" "<<it->second<<endl;
+        }
+*/
+        int NOD = 1,SOD = 1;
+        for(auto it = mp.begin(); it != mp.end(); ++it)
+        {
+            int first = it->first;
+            int second = it->second;
+            NOD *= second+1;
+            SOD *= (binary_exp(first,second+1)-1)/(first-1);
+        }
+        cout<<"NOD = "<<NOD<<endl;
+        cout<<"SOD = "<<SOD<<endl;
+    }
